@@ -15,6 +15,7 @@
 		B463A8521D72D86A00F524BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B463A8501D72D86A00F524BA /* LaunchScreen.storyboard */; };
 		B463A85D1D72D86A00F524BA /* CheckedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A85C1D72D86A00F524BA /* CheckedTests.swift */; };
 		B463A8681D72D86A00F524BA /* CheckedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8671D72D86A00F524BA /* CheckedUITests.swift */; };
+		B463A8761D73150800F524BA /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8751D73150800F524BA /* ListsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B463A8631D72D86A00F524BA /* CheckedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B463A8671D72D86A00F524BA /* CheckedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedUITests.swift; sourceTree = "<group>"; };
 		B463A8691D72D86A00F524BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B463A8751D73150800F524BA /* ListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				B463A8441D72D86A00F524BA /* AppDelegate.swift */,
 				B463A8461D72D86A00F524BA /* ViewController.swift */,
 				B463A8481D72D86A00F524BA /* Main.storyboard */,
+				B463A8751D73150800F524BA /* ListsViewController.swift */,
 				B463A84E1D72D86A00F524BA /* Assets.xcassets */,
 				B463A8501D72D86A00F524BA /* LaunchScreen.storyboard */,
 				B463A8531D72D86A00F524BA /* Info.plist */,
@@ -196,6 +199,7 @@
 				TargetAttributes = {
 					B463A8401D72D86A00F524BA = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3MZA3W2X3N;
 					};
 					B463A8571D72D86A00F524BA = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -261,6 +265,7 @@
 			files = (
 				B463A84D1D72D86A00F524BA /* Checked.xcdatamodeld in Sources */,
 				B463A8471D72D86A00F524BA /* ViewController.swift in Sources */,
+				B463A8761D73150800F524BA /* ListsViewController.swift in Sources */,
 				B463A8451D72D86A00F524BA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,10 +408,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Checked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tmokane.Checked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -414,10 +422,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Checked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tmokane.Checked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
