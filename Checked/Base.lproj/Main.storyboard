@@ -74,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tol-xj-9iB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="539.5" y="382.5"/>
+            <point key="canvasLocation" x="585.5" y="382.5"/>
         </scene>
         <!--Add New List-->
         <scene sceneID="85j-hD-q1P">
@@ -204,7 +204,6 @@
         <!--Navigation Controller-->
         <scene sceneID="rlY-IP-Jy6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hbu-2g-IJd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MmS-hb-hFv" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -217,6 +216,7 @@
                         <segue destination="yhq-eM-FwC" kind="relationship" relationship="rootViewController" id="iuA-Cm-tgo"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hbu-2g-IJd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="116" y="383"/>
         </scene>
