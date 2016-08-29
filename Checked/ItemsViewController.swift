@@ -55,6 +55,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidAppear(animated: Bool) {
         initializeFetchedResultsController()
         table.reloadData()
+        self.navigationItem.title = "List Items"
     }
     
     /*
