@@ -12,10 +12,32 @@ import CoreData
 
 class AddNewItemViewController: UIViewController, UITextFieldDelegate{
     @IBAction func save_item(sender: AnyObject) {
+        addNewItem()
     }
     @IBOutlet weak var item_store: UITextField!
     @IBOutlet weak var item_price: UITextField!
     @IBOutlet weak var item_name: UITextField!
     
+    
+    /*
+     *
+     */
+    func addNewItem(){
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
+        
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as! Item
+        
+        newItem.name = item_name.text
+        newItem.price = (item_price.text! as NSString).doubleValue
+        
+        do{
+            try managedObjectContext.save()
+            self.navigationController?.popViewControllerAnimated(false)
+        } catch {
+            print(error)
+        }
+        
+    }
     
 }
