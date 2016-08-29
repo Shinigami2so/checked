@@ -230,7 +230,7 @@
         <!--Add Item-->
         <scene sceneID="4aP-FF-FFq">
             <objects>
-                <viewController id="nK7-UN-bcg" sceneMemberID="viewController">
+                <viewController id="nK7-UN-bcg" customClass="AddNewItemViewController" customModule="Checked" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4az-iE-qZi"/>
                         <viewControllerLayoutGuide type="bottom" id="kJY-Cz-Bc9"/>
@@ -355,9 +355,18 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Add Item" id="nI8-AV-6NY">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qmD-Gj-EDc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qmD-Gj-EDc">
+                            <connections>
+                                <action selector="save_item:" destination="nK7-UN-bcg" id="iUG-zY-npJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="item_name" destination="5IK-HD-ktl" id="jyr-0t-75k"/>
+                        <outlet property="item_price" destination="B3K-B3-bNs" id="dpg-uj-eQB"/>
+                        <outlet property="item_store" destination="E69-Rc-bF7" id="kg9-ZB-HAg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="InU-fL-z7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

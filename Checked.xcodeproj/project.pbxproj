@@ -24,6 +24,7 @@
 		B463A8831D745EF800F524BA /* Store+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87D1D745EF800F524BA /* Store+CoreDataProperties.swift */; };
 		B463A8841D745EF800F524BA /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87E1D745EF800F524BA /* Store.swift */; };
 		B463A8861D74750700F524BA /* AddNewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8851D74750700F524BA /* AddNewListViewController.swift */; };
+		B463A8881D74943600F524BA /* AddNewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8871D74943600F524BA /* AddNewItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		B463A87D1D745EF800F524BA /* Store+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Store+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B463A87E1D745EF800F524BA /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		B463A8851D74750700F524BA /* AddNewListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewListViewController.swift; sourceTree = "<group>"; };
+		B463A8871D74943600F524BA /* AddNewItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				B463A8461D72D86A00F524BA /* ViewController.swift */,
 				B463A8481D72D86A00F524BA /* Main.storyboard */,
 				B463A8851D74750700F524BA /* AddNewListViewController.swift */,
+				B463A8871D74943600F524BA /* AddNewItemViewController.swift */,
 				B463A8751D73150800F524BA /* ListsViewController.swift */,
 				B463A8791D745EF800F524BA /* Item+CoreDataProperties.swift */,
 				B463A87A1D745EF800F524BA /* Item.swift */,
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B463A87F1D745EF800F524BA /* Item+CoreDataProperties.swift in Sources */,
+				B463A8881D74943600F524BA /* AddNewItemViewController.swift in Sources */,
 				B463A8781D74128300F524BA /* ItemsViewController.swift in Sources */,
 				B463A84D1D72D86A00F524BA /* Checked.xcdatamodeld in Sources */,
 				B463A8471D72D86A00F524BA /* ViewController.swift in Sources */,
