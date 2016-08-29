@@ -101,7 +101,6 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="69Q-8o-Ff7"/>
-                                    <barButtonItem systemItem="save" id="mE5-y1-8RB"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -115,7 +114,9 @@
                             <constraint firstItem="me8-N6-5hg" firstAttribute="bottom" secondItem="cPC-LX-NTP" secondAttribute="top" id="zbu-Cg-Koo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add New List" id="So9-Dy-YOZ"/>
+                    <navigationItem key="navigationItem" title="Add New List" id="So9-Dy-YOZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vw5-mV-W5V"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4us-wv-fHm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -174,7 +175,7 @@
                     <navigationItem key="navigationItem" title="&lt;List Name&gt;" id="VJq-fb-xUu">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="T6G-zp-S0a">
                             <connections>
-                                <segue destination="Vfh-Zh-fea" kind="show" id="Zfs-Bq-ga2"/>
+                                <segue destination="nK7-UN-bcg" kind="show" id="ZWJ-rz-e5h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -184,73 +185,56 @@
             </objects>
             <point key="canvasLocation" x="1082.5" y="799.5"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="j2P-7c-pye">
+        <!--Add Item-->
+        <scene sceneID="4aP-FF-FFq">
             <objects>
-                <viewController id="Vfh-Zh-fea" sceneMemberID="viewController">
+                <viewController id="nK7-UN-bcg" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cou-IF-m55"/>
-                        <viewControllerLayoutGuide type="bottom" id="aO8-nU-WDl"/>
+                        <viewControllerLayoutGuide type="top" id="4az-iE-qZi"/>
+                        <viewControllerLayoutGuide type="bottom" id="kJY-Cz-Bc9"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="RU3-Sd-qse">
+                    <view key="view" contentMode="scaleToFill" id="DRy-Q0-qOI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEP-pr-7bx">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem id="wrP-RL-AbR">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qVc-hV-oZs"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GJi-BP-EGM">
-                                <rect key="frame" x="20" y="72" width="335" height="30"/>
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search All Items" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2i1-cW-GSn">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5IK-HD-ktl">
+                                <rect key="frame" x="20" y="123" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hWn-Je-NQH">
-                                <rect key="frame" x="20" y="110" width="335" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B3K-B3-bNs">
+                                <rect key="frame" x="20" y="161" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Store" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J4m-GP-ETw">
-                                <rect key="frame" x="20" y="148" width="335" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Store" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E69-Rc-bF7">
+                                <rect key="frame" x="20" y="199" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FH9-lU-q3N">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eij-PD-H6R">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="N3v-wb-WKP"/>
-                                    <barButtonItem systemItem="save" id="ZK9-eb-DcT"/>
-                                </items>
+                                <items/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="JEP-pr-7bx" firstAttribute="trailing" secondItem="FH9-lU-q3N" secondAttribute="trailing" id="0me-eC-bNa"/>
-                            <constraint firstItem="JEP-pr-7bx" firstAttribute="leading" secondItem="RU3-Sd-qse" secondAttribute="leading" id="1bd-gA-WQ1"/>
-                            <constraint firstItem="hWn-Je-NQH" firstAttribute="top" secondItem="GJi-BP-EGM" secondAttribute="bottom" constant="8" symbolic="YES" id="5Ht-O2-oiY"/>
-                            <constraint firstItem="JEP-pr-7bx" firstAttribute="bottom" secondItem="cou-IF-m55" secondAttribute="bottom" id="5bI-NW-AhC"/>
-                            <constraint firstAttribute="trailing" secondItem="JEP-pr-7bx" secondAttribute="trailing" id="6cu-DL-ILh"/>
-                            <constraint firstItem="J4m-GP-ETw" firstAttribute="top" secondItem="hWn-Je-NQH" secondAttribute="bottom" constant="8" symbolic="YES" id="8hK-Ni-VNi"/>
-                            <constraint firstItem="JEP-pr-7bx" firstAttribute="leading" secondItem="FH9-lU-q3N" secondAttribute="leading" id="BQo-E7-igV"/>
-                            <constraint firstItem="JEP-pr-7bx" firstAttribute="centerX" secondItem="GJi-BP-EGM" secondAttribute="centerX" id="ECo-Q1-d8C"/>
-                            <constraint firstItem="FH9-lU-q3N" firstAttribute="bottom" secondItem="aO8-nU-WDl" secondAttribute="top" id="M2P-lX-tVN"/>
-                            <constraint firstItem="hWn-Je-NQH" firstAttribute="trailing" secondItem="J4m-GP-ETw" secondAttribute="trailing" id="MXG-OW-oEx"/>
-                            <constraint firstItem="GJi-BP-EGM" firstAttribute="leading" secondItem="hWn-Je-NQH" secondAttribute="leading" id="SIA-iI-pvj"/>
-                            <constraint firstItem="GJi-BP-EGM" firstAttribute="leading" secondItem="RU3-Sd-qse" secondAttribute="leadingMargin" constant="4" id="XrZ-DR-Jpt"/>
-                            <constraint firstItem="GJi-BP-EGM" firstAttribute="trailing" secondItem="hWn-Je-NQH" secondAttribute="trailing" id="b1G-h8-Ip8"/>
-                            <constraint firstItem="GJi-BP-EGM" firstAttribute="top" secondItem="cou-IF-m55" secondAttribute="bottom" constant="8" symbolic="YES" id="hRz-LP-gAv"/>
-                            <constraint firstItem="hWn-Je-NQH" firstAttribute="leading" secondItem="J4m-GP-ETw" secondAttribute="leading" id="nfh-52-rcj"/>
-                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Add Item" id="nI8-AV-6NY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qmD-Gj-EDc"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xhR-tG-Her" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="InU-fL-z7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1495.5" y="799.5"/>
+            <point key="canvasLocation" x="1585.5" y="799.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rlY-IP-Jy6">
