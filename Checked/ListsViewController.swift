@@ -119,6 +119,9 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return [delete]
     }
     
+    /*
+    *
+    */
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedList = fetchedResultsController.objectAtIndexPath(indexPath) as! List
         
@@ -134,5 +137,12 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
+    
+    
+    
+    
+    
+    
+    
     
 }

@@ -3,20 +3,23 @@
     <entity name="Item" representedClassName=".Item" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="store" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="List" inverseName="itemsInList" inverseEntity="List" syncable="YES"/>
+        <relationship name="storeToBuyFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Store" inverseName="itemsInStore" inverseEntity="Store" syncable="YES"/>
     </entity>
     <entity name="List" representedClassName=".List" syncable="YES">
         <attribute name="completion_status" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="date_created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="date_modified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="itemsInList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="parentList" inverseEntity="Item" syncable="YES"/>
     </entity>
     <entity name="Store" representedClassName=".Store" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="itemsInStore" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="storeToBuyFrom" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="List" positionX="-54" positionY="18" width="128" height="105"/>
-        <element name="Store" positionX="-36" positionY="54" width="128" height="60"/>
+        <element name="Item" positionX="-171" positionY="63" width="126" height="103"/>
+        <element name="List" positionX="45" positionY="207" width="128" height="118"/>
+        <element name="Store" positionX="43" positionY="12" width="128" height="73"/>
     </elements>
 </model>
