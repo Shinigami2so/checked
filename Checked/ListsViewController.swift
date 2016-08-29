@@ -14,6 +14,8 @@ import UIKit
 class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var table: UITableView!
     
+    var selectedList: List!
+    
     var fetchedResultsController: NSFetchedResultsController!
     var managedObjectContext: NSManagedObjectContext?{
         return (UIApplication.sharedApplication().delegate
@@ -117,5 +119,20 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return [delete]
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedList = fetchedResultsController.objectAtIndexPath(indexPath) as! List
+        
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "view_items_in_list" {
+            if let destinationViewController = segue.destinationViewController as? ItemsViewController {
+                let selectedIndex = self.table.indexPathForCell(sender as! UITableViewCell)
+                selectedList = fetchedResultsController.objectAtIndexPath(selectedIndex!) as! List
+                destinationViewController.selectedListName = selectedList.name
+            }
+        }
+    }
     
 }

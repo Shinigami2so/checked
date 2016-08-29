@@ -13,6 +13,8 @@ import UIKit
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var table: UITableView!
     
+    var selectedListName: String!
+    
     var fetchedResultsController: NSFetchedResultsController!
     var managedObjectContext: NSManagedObjectContext?{
         return (UIApplication.sharedApplication().delegate
@@ -55,7 +57,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidAppear(animated: Bool) {
         initializeFetchedResultsController()
         table.reloadData()
-        self.navigationItem.title = "List Items"
+        self.navigationItem.title = selectedListName
     }
     
     /*
