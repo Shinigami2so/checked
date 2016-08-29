@@ -23,6 +23,7 @@
 		B463A8821D745EF800F524BA /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87C1D745EF800F524BA /* List.swift */; };
 		B463A8831D745EF800F524BA /* Store+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87D1D745EF800F524BA /* Store+CoreDataProperties.swift */; };
 		B463A8841D745EF800F524BA /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87E1D745EF800F524BA /* Store.swift */; };
+		B463A8861D74750700F524BA /* AddNewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8851D74750700F524BA /* AddNewListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		B463A87C1D745EF800F524BA /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		B463A87D1D745EF800F524BA /* Store+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Store+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B463A87E1D745EF800F524BA /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		B463A8851D74750700F524BA /* AddNewListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				B463A8441D72D86A00F524BA /* AppDelegate.swift */,
 				B463A8461D72D86A00F524BA /* ViewController.swift */,
 				B463A8481D72D86A00F524BA /* Main.storyboard */,
+				B463A8851D74750700F524BA /* AddNewListViewController.swift */,
 				B463A8751D73150800F524BA /* ListsViewController.swift */,
 				B463A8791D745EF800F524BA /* Item+CoreDataProperties.swift */,
 				B463A87A1D745EF800F524BA /* Item.swift */,
@@ -295,6 +298,7 @@
 				B463A8451D72D86A00F524BA /* AppDelegate.swift in Sources */,
 				B463A8811D745EF800F524BA /* List+CoreDataProperties.swift in Sources */,
 				B463A8821D745EF800F524BA /* List.swift in Sources */,
+				B463A8861D74750700F524BA /* AddNewListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
