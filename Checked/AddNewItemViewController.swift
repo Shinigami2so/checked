@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 
 class AddNewItemViewController: UIViewController, UITextFieldDelegate{
+    var parentList: List!
     @IBAction func save_item(sender: AnyObject) {
         addNewItem()
     }
@@ -30,14 +31,21 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate{
         
         newItem.name = item_name.text
         newItem.price = (item_price.text! as NSString).doubleValue
+        parentList.mutableSetValueForKey("itemsInList").addObject(newItem)
+        
+//        do{
+//            try newItem.managedObjectContext!.save()
+//        } catch {
+//            print(error)
+//        }
         
         do{
-            try managedObjectContext.save()
+            try parentList.managedObjectContext!.save()
             self.navigationController?.popViewControllerAnimated(false)
         } catch {
             print(error)
         }
-        
+    
     }
     
 }

@@ -13,7 +13,8 @@ import UIKit
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var table: UITableView!
     
-    var selectedListName: String!
+    var parentList: List?
+    var parentListItems: [AnyObject]!
     
     var fetchedResultsController: NSFetchedResultsController!
     var managedObjectContext: NSManagedObjectContext?{
@@ -23,24 +24,39 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
      *
      */
-    func initializeFetchedResultsController() {
-        let request = NSFetchRequest(entityName: "Item")
-        let name_sort = NSSortDescriptor(key: "name", ascending: true)
-        let price_sort = NSSortDescriptor(key: "price", ascending: true)
-        request.sortDescriptors = [price_sort, name_sort]
-        
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                              managedObjectContext: managedObjectContext!,
-                                                              sectionNameKeyPath: nil,
-                                                              cacheName: nil)
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalError("Failed to initialize FetchedResultsController: \(error)")
-        }
-        
+//    func initializeFetchedResultsController() {
+//        
+//        
+//        
+////        let request = NSFetchRequest(entityName: "Item")
+////        let name_sort = NSSortDescriptor(key: "name", ascending: true)
+////        let price_sort = NSSortDescriptor(key: "price", ascending: true)
+////        request.predicate = NSPredicate(format: "parentList == %@", parentList!.name!)
+////        request.sortDescriptors = [price_sort, name_sort]
+//        let request = NSFetchRequest(entityName: "List")
+//        let name_sort = NSSortDescriptor(key: "name", ascending: true)
+//        request.predicate = NSPredicate(format: "name == %@", parentList!.name!)
+//        request.sortDescriptors = [name_sort]
+//
+//        
+//        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+//                                                              managedObjectContext: managedObjectContext!,
+//                                                              sectionNameKeyPath: nil,
+//                                                              cacheName: nil)
+//        
+//        
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch {
+//            fatalError("Failed to initialize FetchedResultsController: \(error)")
+//        }
+//        
+//        
+//    }
+    
+    func initializeItems() {
+        parentListItems = parentList?.itemsInList?.allObjects as! [Item]
+        print("initializing list")
     }
     
     /*
@@ -48,26 +64,29 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeFetchedResultsController()
+        //print("****\(parentList?.name)")
+        initializeItems()
+//        initializeFetchedResultsController()
+        
+        
     }
     
     /*
      *
      */
     override func viewDidAppear(animated: Bool) {
-        initializeFetchedResultsController()
+//      initializeFetchedResultsController()
+        initializeItems()
         table.reloadData()
-        self.navigationItem.title = selectedListName
+        self.navigationItem.title = parentList!.name!
     }
     
     /*
      *
      */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        let sectionInfo = self.fetchedResultsController.sections![section]
-        
-        return sectionInfo.numberOfObjects
+        print("we have \(parentListItems.count) items in this list")
+        return parentListItems.count
     }
     
     /*
@@ -76,8 +95,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("item_cell", forIndexPath: indexPath) as UITableViewCell
-        
-        let item = fetchedResultsController.objectAtIndexPath(indexPath) as! Item
+        let item = parentListItems[indexPath.item] as! Item
         
         cell.textLabel?.text = item.name
         cell.detailTextLabel?.text = "\(item.price)"
@@ -90,7 +108,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
      */
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let item = fetchedResultsController.objectAtIndexPath(indexPath) as! Item
+        let item = parentListItems[indexPath.item] as! Item
         
         let delete = UITableViewRowAction(style: .Normal, title: "Delete"){action, index in
             
@@ -103,7 +121,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             } catch {
                 print(error)
             }
-            self.initializeFetchedResultsController()
+            self.initializeItems()
             self.table.reloadData()
         }
         
@@ -115,7 +133,14 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return [delete]
     }
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "addNewItemSegue" {
+            if let destinationViewController = segue.destinationViewController as? AddNewItemViewController {
+                destinationViewController.parentList = parentList
+                print("Adding Items to \(parentList!.name)")
+            }
+        }
+    }
     
     
     

@@ -133,7 +133,8 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if let destinationViewController = segue.destinationViewController as? ItemsViewController {
                 let selectedIndex = self.table.indexPathForCell(sender as! UITableViewCell)
                 selectedList = fetchedResultsController.objectAtIndexPath(selectedIndex!) as! List
-                destinationViewController.selectedListName = selectedList.name
+                destinationViewController.parentList = selectedList
+                print("Looking at \(selectedList.name)")
             }
         }
     }

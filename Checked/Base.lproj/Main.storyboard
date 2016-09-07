@@ -76,7 +76,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Lists" id="iOd-YU-nFr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UgZ-TK-ua5">
+                        <barButtonItem key="rightBarButtonItem" title="Add List" id="UgZ-TK-ua5">
                             <connections>
                                 <segue destination="z6U-yG-Y7J" kind="show" identifier="add_new_item_to_list" animates="NO" id="fEw-JW-5pC"/>
                             </connections>
@@ -219,9 +219,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="&lt;List Name&gt;" id="VJq-fb-xUu">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="T6G-zp-S0a">
+                        <barButtonItem key="rightBarButtonItem" title="Add Item" id="T6G-zp-S0a">
                             <connections>
-                                <segue destination="nK7-UN-bcg" kind="show" animates="NO" id="ZWJ-rz-e5h"/>
+                                <segue destination="nK7-UN-bcg" kind="show" identifier="addNewItemSegue" animates="NO" id="ZWJ-rz-e5h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -262,7 +262,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B3K-B3-bNs">
                                 <rect key="frame" x="20" y="161" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Store" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E69-Rc-bF7">
                                 <rect key="frame" x="20" y="199" width="335" height="30"/>
