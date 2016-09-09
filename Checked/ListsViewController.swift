@@ -21,6 +21,7 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return (UIApplication.sharedApplication().delegate
             as! AppDelegate).managedObjectContext
     }
+    
     /*
      *
      */
@@ -45,7 +46,7 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } catch {
             fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
-
+        
     }
     
     /*

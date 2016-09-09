@@ -273,6 +273,36 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items/>
                             </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WkO-bt-Zj2">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="238" id="HWM-Sn-UFF"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="4d1-gm-aeT">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4d1-gm-aeT" id="k3f-Hf-iJo">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="HWM-Sn-UFF"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="20" y="237" width="335" height="238"/>
+                                    <mask key="constraints">
+                                        <include reference="HWM-Sn-UFF"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="nK7-UN-bcg" id="4Sx-bD-gZa"/>
+                                    <outlet property="delegate" destination="nK7-UN-bcg" id="1Sa-8S-CtK"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -292,9 +322,11 @@
                             <constraint firstItem="5IK-HD-ktl" firstAttribute="leading" secondItem="B3K-B3-bNs" secondAttribute="leading" id="WlB-4u-q7e"/>
                             <constraint firstItem="2i1-cW-GSn" firstAttribute="leading" secondItem="eij-PD-H6R" secondAttribute="leading" id="X0m-bo-rMD"/>
                             <constraint firstItem="5IK-HD-ktl" firstAttribute="trailing" secondItem="B3K-B3-bNs" secondAttribute="trailing" id="XUC-UN-bQb"/>
+                            <constraint firstItem="WkO-bt-Zj2" firstAttribute="leading" secondItem="DRy-Q0-qOI" secondAttribute="leadingMargin" id="XZC-Dh-9gN"/>
                             <constraint firstItem="E69-Rc-bF7" firstAttribute="top" secondItem="B3K-B3-bNs" secondAttribute="bottom" constant="8" symbolic="YES" id="Ybk-z0-vsS"/>
                             <constraint firstItem="eij-PD-H6R" firstAttribute="bottom" secondItem="kJY-Cz-Bc9" secondAttribute="top" id="Yq0-nc-LU2"/>
                             <constraint firstItem="2i1-cW-GSn" firstAttribute="leading" secondItem="DRy-Q0-qOI" secondAttribute="leading" id="b4T-5R-KjZ"/>
+                            <constraint firstItem="WkO-bt-Zj2" firstAttribute="top" secondItem="E69-Rc-bF7" secondAttribute="bottom" constant="8" id="eri-F9-a0H"/>
                             <constraint firstItem="2i1-cW-GSn" firstAttribute="centerX" secondItem="5IK-HD-ktl" secondAttribute="centerX" id="iRX-OC-IIk"/>
                             <constraint firstItem="2i1-cW-GSn" firstAttribute="trailing" secondItem="eij-PD-H6R" secondAttribute="trailing" id="if4-IY-ECD"/>
                             <constraint firstItem="B3K-B3-bNs" firstAttribute="trailing" secondItem="E69-Rc-bF7" secondAttribute="trailing" id="inc-Ba-a6q"/>
@@ -302,12 +334,16 @@
                             <constraint firstAttribute="trailing" secondItem="2i1-cW-GSn" secondAttribute="trailing" id="lC6-Fw-TPe"/>
                             <constraint firstItem="5IK-HD-ktl" firstAttribute="top" secondItem="2i1-cW-GSn" secondAttribute="bottom" constant="15" id="mg0-9k-VZm"/>
                             <constraint firstItem="E69-Rc-bF7" firstAttribute="top" secondItem="B3K-B3-bNs" secondAttribute="bottom" constant="8" symbolic="YES" id="oqD-wF-AWo"/>
+                            <constraint firstItem="WkO-bt-Zj2" firstAttribute="trailing" secondItem="E69-Rc-bF7" secondAttribute="trailing" id="pHh-W7-aB9"/>
                             <constraint firstItem="2i1-cW-GSn" firstAttribute="top" secondItem="4az-iE-qZi" secondAttribute="bottom" id="pfa-wb-sRH"/>
                             <constraint firstItem="5IK-HD-ktl" firstAttribute="trailing" secondItem="B3K-B3-bNs" secondAttribute="trailing" id="rKj-A1-OyX"/>
                             <constraint firstAttribute="trailing" secondItem="2i1-cW-GSn" secondAttribute="trailing" id="sPk-0n-5MX"/>
                             <constraint firstItem="2i1-cW-GSn" firstAttribute="leading" secondItem="eij-PD-H6R" secondAttribute="leading" id="uLV-nb-nLv"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="WkO-bt-Zj2"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="BX1-uj-sq5"/>
                                 <exclude reference="X0m-bo-rMD"/>
@@ -323,10 +359,16 @@
                                 <exclude reference="NFu-Aw-iqL"/>
                                 <exclude reference="QIz-L3-gLD"/>
                                 <exclude reference="oqD-wF-AWo"/>
+                                <exclude reference="XZC-Dh-9gN"/>
+                                <exclude reference="eri-F9-a0H"/>
+                                <exclude reference="pHh-W7-aB9"/>
                                 <exclude reference="Yq0-nc-LU2"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="WkO-bt-Zj2"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="6Eu-kt-gEG"/>
                                 <include reference="BX1-uj-sq5"/>
@@ -356,6 +398,9 @@
                                 <exclude reference="inc-Ba-a6q"/>
                                 <exclude reference="Ybk-z0-vsS"/>
                                 <include reference="oqD-wF-AWo"/>
+                                <include reference="XZC-Dh-9gN"/>
+                                <include reference="eri-F9-a0H"/>
+                                <include reference="pHh-W7-aB9"/>
                                 <exclude reference="TNI-L2-Cws"/>
                                 <include reference="Yq0-nc-LU2"/>
                             </mask>
@@ -373,6 +418,7 @@
                         <outlet property="item_name" destination="5IK-HD-ktl" id="jyr-0t-75k"/>
                         <outlet property="item_price" destination="B3K-B3-bNs" id="dpg-uj-eQB"/>
                         <outlet property="item_store" destination="E69-Rc-bF7" id="kg9-ZB-HAg"/>
+                        <outlet property="tableView" destination="WkO-bt-Zj2" id="QHE-dw-4U5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="InU-fL-z7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
