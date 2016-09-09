@@ -29,8 +29,16 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate{
         
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as! Item
         
-        newItem.name = item_name.text
+        let newStore = NSEntityDescription.insertNewObjectForEntityForName("Store", inManagedObjectContext: managedObjectContext) as! Store
+        
+        newItem.name = item_name.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
         newItem.price = (item_price.text! as NSString).doubleValue
+        
+        newStore.name = item_store.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        newItem.storeToBuyFrom = newStore
+        
         parentList.mutableSetValueForKey("itemsInList").addObject(newItem)
         
 //        do{

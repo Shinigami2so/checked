@@ -15,7 +15,7 @@ class AddNewListViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var list_name_text_field: UITextField!
     
     @IBAction func save_new_list(sender: AnyObject) {
-        addNewList(list_name_text_field.text!)
+        addNewList(list_name_text_field.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))
     }
     
     

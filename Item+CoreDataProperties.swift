@@ -2,7 +2,7 @@
 //  Item+CoreDataProperties.swift
 //  Checked
 //
-//  Created by Thuso Mokane on 29/08/16.
+//  Created by Thuso Mokane on 08/09/16.
 //  Copyright © 2016 Thuso Mokane. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,7 +16,7 @@ extension Item {
 
     @NSManaged var name: String?
     @NSManaged var price: NSNumber?
-    @NSManaged var parentList: NSSet?
-    @NSManaged var storeToBuyFrom: NSSet?
+    @NSManaged var parentList: List?
+    @NSManaged var storeToBuyFrom: Store?
 
 }
