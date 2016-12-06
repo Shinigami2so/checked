@@ -12,7 +12,7 @@ import CoreData
 
 class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{
     var parentList: List!
-    @IBAction func save_item(sender: AnyObject) {
+    @IBAction func save_item(_ sender: AnyObject) {
         addNewItem()
     }
     @IBOutlet weak var item_store: UITextField!
@@ -36,22 +36,22 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
      *
      */
     func addNewItem(){
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
         
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: managedObjectContext) as! Item
+        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Item", into: managedObjectContext) as! Item
         
-        let newStore = NSEntityDescription.insertNewObjectForEntityForName("Store", inManagedObjectContext: managedObjectContext) as! Store
+        let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext) as! Store
         
-        newItem.name = item_name.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        newItem.name = item_name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        newItem.price = (item_price.text! as NSString).doubleValue
+        newItem.price = (item_price.text! as NSString).doubleValue as NSNumber?
         
-        newStore.name = item_store.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
         newItem.storeToBuyFrom = newStore
         
-        parentList.mutableSetValueForKey("itemsInList").addObject(newItem)
+        parentList.mutableSetValue(forKey: "itemsInList").add(newItem)
         
 //        do{
 //            try newItem.managedObjectContext!.save()
@@ -61,7 +61,7 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         do{
             try parentList.managedObjectContext!.save()
-            self.navigationController?.popViewControllerAnimated(false)
+            self.navigationController?.popViewController(animated: false)
         } catch {
             print(error)
         }
@@ -72,8 +72,8 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     /*
      *
      */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
         let index = indexPath.row as Int
         
@@ -86,16 +86,16 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     /*
      *
      */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return autoComplete.count
     }
     
     /*
      *
     */
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        let substring = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let substring = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         searchAutocompleteEntriesWithSubstring(substring)
         
@@ -105,27 +105,27 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     /*
     *
     */
-    func textFieldDidBeginEditing(textField: UITextField) {
-        tableView.hidden = false
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        tableView.isHidden = false
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
-        tableView.hidden = false
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        tableView.isHidden = false
     }
     
     /*
      *
     */
-    func searchAutocompleteEntriesWithSubstring(substring: String)
+    func searchAutocompleteEntriesWithSubstring(_ substring: String)
     {
-        autoComplete.removeAll(keepCapacity: false)
+        autoComplete.removeAll(keepingCapacity: false)
         
         for key in autoCompletePossibilities
         {
-            let lowkey = key.lowercaseString
-            let myString:NSString! = lowkey as String
+            let lowkey = key.lowercased()
+            let myString:NSString! = lowkey as String as NSString!
             
-            let substringRange :NSRange! = myString.rangeOfString(substring.lowercaseString)
+            let substringRange :NSRange! = myString.range(of: substring.lowercased())
             
             if (substringRange.location == 0)
             {
@@ -138,12 +138,12 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     /*
      *
      */
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedCell: UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell: UITableViewCell = tableView.cellForRow(at: indexPath)!
         
         item_store.text = selectedCell.textLabel?.text
         
-        tableView.hidden = true
+        tableView.isHidden = true
     }
     
 }

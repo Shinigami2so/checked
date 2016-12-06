@@ -14,26 +14,26 @@ class AddNewListViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var list_name_text_field: UITextField!
     
-    @IBAction func save_new_list(sender: AnyObject) {
-        addNewList(list_name_text_field.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))
+    @IBAction func save_new_list(_ sender: AnyObject) {
+        addNewList(list_name_text_field.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
     }
     
     
     /*
     *
     */
-    func addNewList(list_name: String){
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    func addNewList(_ list_name: String){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
         
-        let newList = NSEntityDescription.insertNewObjectForEntityForName("List", inManagedObjectContext: managedObjectContext) as! List
+        let newList = NSEntityDescription.insertNewObject(forEntityName: "List", into: managedObjectContext) as! List
         
         newList.name = list_name
-        newList.date_created = NSDate()
+        newList.date_created = Date()
         
         do{
             try managedObjectContext.save()
-            self.navigationController?.popViewControllerAnimated(false)
+            self.navigationController?.popViewController(animated: false)
         } catch {
             print(error)
         }

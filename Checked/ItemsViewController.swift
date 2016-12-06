@@ -16,9 +16,11 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var parentList: List?
     var parentListItems: [AnyObject]!
     
-    var fetchedResultsController: NSFetchedResultsController!
+    @IBOutlet weak var totalView: UIView!
+    
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     var managedObjectContext: NSManagedObjectContext?{
-        return (UIApplication.sharedApplication().delegate
+        return (UIApplication.shared.delegate
             as! AppDelegate).managedObjectContext
     }
     /*
@@ -26,7 +28,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
      */
     func initializeFetchedResultsController() {
         
-        let request = NSFetchRequest(entityName: "Item")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
         let store_sort = NSSortDescriptor(key: "storeToBuyFrom.name", ascending: true)
         let name_sort = NSSortDescriptor(key: "name", ascending: true)
         let price_sort = NSSortDescriptor(key: "price", ascending: true)
@@ -63,17 +65,41 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //        initializeItems()
         initializeFetchedResultsController()
         
+        self.table.layer.borderWidth = 1
+        self.table.layer.cornerRadius = 25
+//        self.table.layer.shadowColor = UIColor.black.cgColor
+//        self.table.layer.shadowOffset = CGSize.zero
+//        self.table.layer.shadowRadius = 3
+//        self.table.layer.shadowOpacity = 1
+        self.table.layer.masksToBounds = false
+//        self.table.clipsToBounds = true
+        
+        
+        table.layer.shadowColor = UIColor.black.cgColor
+        table.layer.shadowOpacity = 0.5
+        table.layer.shadowOffset = CGSize(width: 2, height: 2)
+        table.layer.shadowRadius = 25
+        
+        table.layer.shadowPath = UIBezierPath(rect: table.bounds).cgPath
+        //table.layer.shouldRasterize = true
+        
+        self.automaticallyAdjustsScrollViewInsets = false
         
     }
     
     /*
      *
      */
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         initializeFetchedResultsController()
 //        initializeItems()
         table.reloadData()
         self.navigationItem.title = parentList!.name!
+        
+        totalView.layer.shadowColor = UIColor.black.cgColor
+        totalView.layer.shadowOpacity = 1
+        totalView.layer.shadowOffset = CGSize.zero
+        totalView.layer.shadowRadius = 3
     }
     
     
@@ -81,7 +107,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //        return 1
 //    }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if let sections = fetchedResultsController.sections {
             return sections.count
         }
@@ -92,7 +118,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
      *
      */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let sections = fetchedResultsController.sections {
             let currentSection = sections[section]
@@ -105,7 +131,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
      *
      */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
 //        let cell = tableView.dequeueReusableCellWithIdentifier("item_cell", forIndexPath: indexPath) as UITableViewCell
 //        let item = fetchedResultsController.objectAtIndexPath(indexPath) as! Item
@@ -113,8 +139,8 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //        cell.detailTextLabel?.text = "\(CURRENCY) \(item.price!)"
 //        
 //        return cell
-        let cell = tableView.dequeueReusableCellWithIdentifier("item_cell", forIndexPath: indexPath)
-        let item = fetchedResultsController.objectAtIndexPath(indexPath) as! Item
+        let cell = tableView.dequeueReusableCell(withIdentifier: "item_cell", for: indexPath)
+        let item = fetchedResultsController.object(at: indexPath) as! Item
         
         cell.textLabel?.text = item.name
         cell.detailTextLabel?.text = "\(CURRENCY) \(item.price!)"
@@ -123,7 +149,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if let sections = fetchedResultsController.sections {
             let currentSection = sections[section]
             return currentSection.name
@@ -136,14 +162,14 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
      * Actions on right swipe on a uitableview cell
      */
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let item = fetchedResultsController.objectAtIndexPath(indexPath) as! Item
+        let item = fetchedResultsController.object(at: indexPath) as! Item
         
-        let delete = UITableViewRowAction(style: .Normal, title: "Delete"){action, index in
+        let delete = UITableViewRowAction(style: .normal, title: "Delete"){action, index in
             
             //delete object in model
-            self.managedObjectContext?.deleteObject(item)
+            self.managedObjectContext?.delete(item)
             
             //save model with object deleted
             do{
@@ -157,16 +183,16 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         //red delete button
-        delete.backgroundColor = UIColor.redColor()
+        delete.backgroundColor = UIColor.red
         
         
         //return the swipe buttons
         return [delete]
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addNewItemSegue" {
-            if let destinationViewController = segue.destinationViewController as? AddNewItemViewController {
+            if let destinationViewController = segue.destination as? AddNewItemViewController {
                 destinationViewController.parentList = parentList
                 print("Adding Items to \(parentList!.name)")
             }

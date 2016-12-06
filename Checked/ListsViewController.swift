@@ -16,9 +16,9 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var selectedList: List!
     
-    var fetchedResultsController: NSFetchedResultsController!
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     var managedObjectContext: NSManagedObjectContext?{
-        return (UIApplication.sharedApplication().delegate
+        return (UIApplication.shared.delegate
             as! AppDelegate).managedObjectContext
     }
     
@@ -26,7 +26,7 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
      *
      */
     func initializeFetchedResultsController() {
-        let request = NSFetchRequest(entityName: "List")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
         let name_sort = NSSortDescriptor(key: "name", ascending: true)
         let date_sort = NSSortDescriptor(key: "date_created", ascending: true)
         request.sortDescriptors = [name_sort, date_sort]
@@ -60,7 +60,7 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
      *
      */
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         initializeFetchedResultsController()
         table.reloadData()
     }
@@ -68,7 +68,7 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
      *
      */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let sectionInfo = self.fetchedResultsController.sections![section]
         
@@ -78,11 +78,11 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
     *
     */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("list_cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "list_cell", for: indexPath) as UITableViewCell
         
-        let list = fetchedResultsController.objectAtIndexPath(indexPath) as! List
+        let list = fetchedResultsController.object(at: indexPath) as! List
         
         cell.textLabel?.text = list.name
         //cell.detailTextLabel?.text = "open list"
@@ -93,14 +93,14 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
      * Actions on right swipe on a uitableview cell
      */
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let list = fetchedResultsController.objectAtIndexPath(indexPath) as! List
+        let list = fetchedResultsController.object(at: indexPath) as! List
         
-        let delete = UITableViewRowAction(style: .Normal, title: "Delete"){action, index in
+        let delete = UITableViewRowAction(style: .normal, title: "Delete"){action, index in
             
             //delete object in model
-            self.managedObjectContext?.deleteObject(list)
+            self.managedObjectContext?.delete(list)
             
             //save model with object deleted
             do{
@@ -113,7 +113,7 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         //red delete button
-        delete.backgroundColor = UIColor.redColor()
+        delete.backgroundColor = UIColor.red
         
         
         //return the swipe buttons
@@ -123,17 +123,17 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     /*
     *
     */
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedList = fetchedResultsController.objectAtIndexPath(indexPath) as! List
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedList = fetchedResultsController.object(at: indexPath) as! List
         
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "view_items_in_list" {
-            if let destinationViewController = segue.destinationViewController as? ItemsViewController {
-                let selectedIndex = self.table.indexPathForCell(sender as! UITableViewCell)
-                selectedList = fetchedResultsController.objectAtIndexPath(selectedIndex!) as! List
+            if let destinationViewController = segue.destination as? ItemsViewController {
+                let selectedIndex = self.table.indexPath(for: sender as! UITableViewCell)
+                selectedList = fetchedResultsController.object(at: selectedIndex!) as! List
                 destinationViewController.parentList = selectedList
                 print("Looking at \(selectedList.name)")
             }
