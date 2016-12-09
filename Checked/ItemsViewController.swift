@@ -17,6 +17,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var parentListItems: [AnyObject]!
     
     @IBOutlet weak var totalView: UIView!
+    @IBOutlet weak var totalLabel: UILabel!
     
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     var managedObjectContext: NSManagedObjectContext?{
@@ -66,24 +67,14 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         initializeFetchedResultsController()
         
         self.table.layer.borderWidth = 1
-        self.table.layer.cornerRadius = 25
-//        self.table.layer.shadowColor = UIColor.black.cgColor
-//        self.table.layer.shadowOffset = CGSize.zero
-//        self.table.layer.shadowRadius = 3
-//        self.table.layer.shadowOpacity = 1
-        self.table.layer.masksToBounds = false
-//        self.table.clipsToBounds = true
-        
-        
-        table.layer.shadowColor = UIColor.black.cgColor
-        table.layer.shadowOpacity = 0.5
-        table.layer.shadowOffset = CGSize(width: 2, height: 2)
-        table.layer.shadowRadius = 25
-        
-        table.layer.shadowPath = UIBezierPath(rect: table.bounds).cgPath
-        //table.layer.shouldRasterize = true
+//        self.table.layer.cornerRadius = 25
+        self.table.layer.shadowColor = UIColor.black.cgColor
+        self.table.layer.shadowOffset = CGSize.zero
+        self.table.layer.shadowRadius = 3
+        self.table.layer.shadowOpacity = 1
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
         
     }
     
@@ -94,6 +85,9 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         initializeFetchedResultsController()
 //        initializeItems()
         table.reloadData()
+        //calculate the total cost of all items and display
+        computeTotalCost()
+        
         self.navigationItem.title = parentList!.name!
         
         totalView.layer.shadowColor = UIColor.black.cgColor
@@ -143,7 +137,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let item = fetchedResultsController.object(at: indexPath) as! Item
         
         cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = "\(CURRENCY) \(item.price!)"
+        cell.detailTextLabel?.text = "\(item.price!)"
         
         return cell
     }
@@ -179,6 +173,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             //self.initializeItems()
             self.initializeFetchedResultsController()
+            self.computeTotalCost()
             self.table.reloadData()
         }
         
@@ -188,6 +183,19 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //return the swipe buttons
         return [delete]
+    }
+    
+    
+    func computeTotalCost(){
+        var total = 0.00
+        
+        var listItems = parentList?.itemsInList?.allObjects as! [Item]
+        
+        for currentItem in listItems{
+            total += currentItem.price as! Double
+        }
+        
+        self.totalLabel.text = "\(total)"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

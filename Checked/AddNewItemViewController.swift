@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{
+class AddNewItemViewController: UIViewController, UITextFieldDelegate{
     var parentList: List!
     @IBAction func save_item(_ sender: AnyObject) {
         addNewItem()
@@ -18,19 +18,9 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     @IBOutlet weak var item_store: UITextField!
     @IBOutlet weak var item_price: UITextField!
     @IBOutlet weak var item_name: UITextField!
-    @IBOutlet weak var tableView: UITableView!
     
     var autoCompletePossibilities = ["Woolworths", "Choppies", "Pick n Pay", "Sefalana", "SquareMart"]
     var autoComplete = [String]()
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        item_store.delegate = self
-        tableView.delegate = self
-    }
-    
     
     /*
      *
@@ -68,82 +58,7 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     }
     
-    
-    /*
-     *
-     */
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
-        
-        let index = indexPath.row as Int
-        
-        cell.textLabel?.text = autoComplete[index]
-        
-        return cell
-        
-    }
-    
-    /*
-     *
-     */
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return autoComplete.count
-    }
-    
-    /*
-     *
-    */
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let substring = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        
-        searchAutocompleteEntriesWithSubstring(substring)
-        
-        return true
-    }
-    
-    /*
-    *
-    */
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        tableView.isHidden = false
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        tableView.isHidden = false
-    }
-    
-    /*
-     *
-    */
-    func searchAutocompleteEntriesWithSubstring(_ substring: String)
-    {
-        autoComplete.removeAll(keepingCapacity: false)
-        
-        for key in autoCompletePossibilities
-        {
-            let lowkey = key.lowercased()
-            let myString:NSString! = lowkey as String as NSString!
-            
-            let substringRange :NSRange! = myString.range(of: substring.lowercased())
-            
-            if (substringRange.location == 0)
-            {
-                autoComplete.append(key)
-            }
-        }
-        tableView.reloadData()
-    }
-    
-    /*
-     *
-     */
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell: UITableViewCell = tableView.cellForRow(at: indexPath)!
-        
-        item_store.text = selectedCell.textLabel?.text
-        
-        tableView.isHidden = true
-    }
-    
 }
+
+
+

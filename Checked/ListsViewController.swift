@@ -55,6 +55,14 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeFetchedResultsController()
+        
+        self.table.layer.borderWidth = 1
+        //        self.table.layer.cornerRadius = 25
+        self.table.layer.shadowColor = UIColor.black.cgColor
+        self.table.layer.shadowOffset = CGSize.zero
+        self.table.layer.shadowRadius = 3
+        self.table.layer.shadowOpacity = 1
+        
     }
     
     /*
