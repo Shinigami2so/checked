@@ -10,11 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
-class AddNewItemViewController: UIViewController, UITextFieldDelegate{
+class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource{
     var parentList: List!
     @IBAction func save_item(_ sender: AnyObject) {
         addNewItem()
     }
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var item_store: UITextField!
     @IBOutlet weak var item_price: UITextField!
     @IBOutlet weak var item_name: UITextField!
@@ -22,6 +24,29 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate{
     var autoCompletePossibilities = ["Woolworths", "Choppies", "Pick n Pay", "Sefalana", "SquareMart"]
     var autoComplete = [String]()
     
+    /*
+     *
+     */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return autoCompletePossibilities.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "store_cell", for: indexPath) as UITableViewCell
+        
+        cell.textLabel?.text = autoCompletePossibilities[indexPath.row]
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        item_store.text? = (tableView.cellForRow(at: indexPath)?.textLabel?.text)!
+    }
     /*
      *
      */

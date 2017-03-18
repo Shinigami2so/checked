@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MmS-hb-hFv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MmS-hb-hFv">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -272,20 +272,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Search All Items" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2i1-cW-GSn">
-                                <rect key="frame" x="0.0" y="64" width="414" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                            </searchBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eij-PD-H6R">
                                 <rect key="frame" x="0.0" y="692" width="414" height="44"/>
                                 <items/>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOK-gS-352">
-                                <rect key="frame" x="5" y="108" width="404" height="584"/>
+                                <rect key="frame" x="5" y="72" width="404" height="620"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5IK-HD-ktl">
                                         <rect key="frame" x="24" y="8" width="366" height="30"/>
@@ -305,40 +297,46 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sSh-cE-wCH">
+                                        <rect key="frame" x="24" y="122" width="366" height="214"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="store_cell" editingAccessoryType="checkmark" id="cA0-eY-yMP">
+                                                <rect key="frame" x="0.0" y="28" width="366" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cA0-eY-yMP" id="vpH-3J-KiJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="366" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="nK7-UN-bcg" id="msS-FR-tqW"/>
+                                            <outlet property="delegate" destination="nK7-UN-bcg" id="VFw-a7-UEl"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="HOK-gS-352" firstAttribute="leading" secondItem="2i1-cW-GSn" secondAttribute="leading" constant="5" id="67P-00-32A"/>
-                            <constraint firstItem="HOK-gS-352" firstAttribute="trailing" secondItem="2i1-cW-GSn" secondAttribute="trailing" constant="-5" id="AIH-3w-XQj"/>
-                            <constraint firstItem="2i1-cW-GSn" firstAttribute="leading" secondItem="DRy-Q0-qOI" secondAttribute="leading" id="BX1-uj-sq5"/>
-                            <constraint firstItem="2i1-cW-GSn" firstAttribute="leading" secondItem="eij-PD-H6R" secondAttribute="leading" id="X0m-bo-rMD"/>
+                            <constraint firstItem="HOK-gS-352" firstAttribute="top" secondItem="4az-iE-qZi" secondAttribute="bottom" constant="8" symbolic="YES" id="0Nu-q0-oWl"/>
+                            <constraint firstItem="eij-PD-H6R" firstAttribute="leading" secondItem="DRy-Q0-qOI" secondAttribute="leading" id="1V7-qk-fcq"/>
+                            <constraint firstItem="HOK-gS-352" firstAttribute="leading" secondItem="DRy-Q0-qOI" secondAttribute="leadingMargin" constant="-15" id="8I5-uw-wgh"/>
+                            <constraint firstItem="HOK-gS-352" firstAttribute="centerX" secondItem="eij-PD-H6R" secondAttribute="centerX" id="AJU-TK-6UV"/>
                             <constraint firstItem="HOK-gS-352" firstAttribute="bottom" secondItem="eij-PD-H6R" secondAttribute="top" id="XPA-LL-0UE"/>
                             <constraint firstItem="eij-PD-H6R" firstAttribute="bottom" secondItem="kJY-Cz-Bc9" secondAttribute="top" id="Yq0-nc-LU2"/>
-                            <constraint firstItem="HOK-gS-352" firstAttribute="top" secondItem="2i1-cW-GSn" secondAttribute="bottom" id="ZbI-8h-jmQ"/>
-                            <constraint firstItem="2i1-cW-GSn" firstAttribute="trailing" secondItem="eij-PD-H6R" secondAttribute="trailing" id="if4-IY-ECD"/>
-                            <constraint firstAttribute="trailing" secondItem="2i1-cW-GSn" secondAttribute="trailing" id="lC6-Fw-TPe"/>
-                            <constraint firstItem="2i1-cW-GSn" firstAttribute="top" secondItem="4az-iE-qZi" secondAttribute="bottom" id="pfa-wb-sRH"/>
+                            <constraint firstItem="HOK-gS-352" firstAttribute="centerX" secondItem="DRy-Q0-qOI" secondAttribute="centerX" id="gMC-vI-9tV"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="BX1-uj-sq5"/>
-                                <exclude reference="X0m-bo-rMD"/>
-                                <exclude reference="if4-IY-ECD"/>
-                                <exclude reference="lC6-Fw-TPe"/>
-                                <exclude reference="pfa-wb-sRH"/>
                                 <exclude reference="Yq0-nc-LU2"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="BX1-uj-sq5"/>
-                                <include reference="X0m-bo-rMD"/>
-                                <include reference="if4-IY-ECD"/>
-                                <include reference="lC6-Fw-TPe"/>
-                                <include reference="pfa-wb-sRH"/>
                                 <include reference="Yq0-nc-LU2"/>
                             </mask>
                         </variation>
@@ -354,6 +352,7 @@
                         <outlet property="item_name" destination="5IK-HD-ktl" id="jyr-0t-75k"/>
                         <outlet property="item_price" destination="B3K-B3-bNs" id="dpg-uj-eQB"/>
                         <outlet property="item_store" destination="E69-Rc-bF7" id="kg9-ZB-HAg"/>
+                        <outlet property="tableView" destination="sSh-cE-wCH" id="o5z-RF-XZd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="InU-fL-z7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
