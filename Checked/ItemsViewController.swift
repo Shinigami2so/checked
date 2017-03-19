@@ -13,6 +13,7 @@ import UIKit
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     @IBOutlet var table: UITableView!
     let CURRENCY = "BWP"
+    var editItem: Item?
     var parentList: List?
     var parentListItems: [AnyObject]!
     
@@ -177,19 +178,26 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.table.reloadData()
         }
         
+        let edit = UITableViewRowAction(style: .normal, title: "Edit"){action, index in
+            self.editItem = item
+            
+            self.performSegue(withIdentifier: "editItemSegue", sender: nil)
+            
+        }
+        
         //red delete button
         delete.backgroundColor = UIColor.red
         
         
         //return the swipe buttons
-        return [delete]
+        return [delete, edit]
     }
     
     
     func computeTotalCost(){
         var total = 0.00
         
-        var listItems = parentList?.itemsInList?.allObjects as! [Item]
+        let listItems = parentList?.itemsInList?.allObjects as! [Item]
         
         for currentItem in listItems{
             total += currentItem.price as! Double
@@ -198,11 +206,23 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.totalLabel.text = "\(total)"
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //Adding new item
         if segue.identifier == "addNewItemSegue" {
             if let destinationViewController = segue.destination as? AddNewItemViewController {
                 destinationViewController.parentList = parentList
+                destinationViewController.isNewItem = true
                 print("Adding Items to \(parentList!.name)")
+            }
+        }
+        //Editting existing item
+        if segue.identifier == "editItemSegue" {
+            if let destinationViewController = segue.destination as? AddNewItemViewController {
+                destinationViewController.parentList = parentList
+                destinationViewController.editItem = editItem
+                destinationViewController.isNewItem = false
+                print("Now modifying \(editItem!.name) in list \(parentList!.name)")
             }
         }
     }

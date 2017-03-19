@@ -11,7 +11,8 @@ import UIKit
 import CoreData
 
 class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource{
-    
+    var isNewItem = true
+    var editItem: Item!
     var parentList: List!
     var existingStore: Store!
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
@@ -29,13 +30,16 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     @IBOutlet weak var item_price: UITextField!
     @IBOutlet weak var item_name: UITextField!
     
-    var autoCompletePossibilities = ["Woolworths", "Choppies", "Pick n Pay", "Sefalana", "SquareMart"]
-    var autoComplete = [String]()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeFetchedResultsController()
+        
+        if !isNewItem{
+            item_store.text = editItem.storeToBuyFrom?.name
+            item_name.text = editItem.name
+            item_price.text = "\(editItem.price!)"
+        }
     }
     
     
@@ -45,20 +49,18 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     func initializeFetchedResultsController() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Store")
         let name_sort = NSSortDescriptor(key: "name", ascending: true)
-        request.sortDescriptors = [name_sort]
         
+        request.sortDescriptors = [name_sort]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
                                                               managedObjectContext: managedObjectContext!,
                                                               sectionNameKeyPath: nil,
                                                               cacheName: nil)
-        
         do {
             try fetchedResultsController.performFetch()
         } catch {
             fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
-        
     }
     
     
@@ -70,19 +72,20 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
         return 1
     }
     
+    /*
+     *
+     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        
         let sectionInfo = self.fetchedResultsController.sections![section]
         
         return sectionInfo.numberOfObjects
-        
-        
     }
     
+    /*
+     *
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "store_cell", for: indexPath) as UITableViewCell
-        
         let store = fetchedResultsController.object(at: indexPath) as! Store
         
         cell.textLabel?.text = store.name
@@ -90,48 +93,72 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
         return cell
     }
     
-    
+    /*
+     *
+     */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         item_store.text? = (tableView.cellForRow(at: indexPath)?.textLabel?.text)!
     }
+    
     /*
      *
      */
     func addNewItem(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
+        if self.isNewItem{
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
+            let newItem = NSEntityDescription.insertNewObject(forEntityName: "Item", into: managedObjectContext) as! Item
         
-        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Item", into: managedObjectContext) as! Item
+            newItem.name = item_name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        newItem.name = item_name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            newItem.price = (item_price.text! as NSString).doubleValue as NSNumber?
         
-        newItem.price = (item_price.text! as NSString).doubleValue as NSNumber?
+            parentList.mutableSetValue(forKey: "itemsInList").add(newItem)
         
-        
-        
-        
-        parentList.mutableSetValue(forKey: "itemsInList").add(newItem)
-        
-        
-        //if store exists update the existing record
-        if doesStoreExist(storeName: item_store.text!){
-            newItem.storeToBuyFrom = existingStore
-        }else {
-            let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext) as! Store
+            //if store exists update the existing record
+            if doesStoreExist(storeName: item_store.text!){
+                newItem.storeToBuyFrom = existingStore
+            }else {
+                let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext) as! Store
             
-            newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            newItem.storeToBuyFrom = newStore
+                newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                newItem.storeToBuyFrom = newStore
+            }
+        
+            do{
+                try parentList.managedObjectContext!.save()
+                self.navigationController?.popViewController(animated: false)
+            } catch {
+                print(error)
+            }
+        } else {
+            editItem.setValue((item_name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)), forKey: "name")
+            editItem.setValue(((item_price.text! as NSString).doubleValue as NSNumber?), forKey: "price")
+            
+            editItem.setValue(getOrCreateStoreWithName(storeName: item_store.text!), forKey: "storeToBuyFrom")
+            
+            do{
+                try managedObjectContext!.save()
+                self.navigationController?.popViewController(animated: false)
+            } catch {
+                print(error)
+            }
+            
         }
-        
-        
-        
-        do{
-            try parentList.managedObjectContext!.save()
-            self.navigationController?.popViewController(animated: false)
-        } catch {
-            print(error)
-        }
+    }
     
+    /*
+    *
+    */
+    func getOrCreateStoreWithName(storeName: String) ->Store{
+        if doesStoreExist(storeName: storeName){
+            return existingStore
+        } else {
+            let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext!) as! Store
+            newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            
+            return newStore
+        }
     }
     
     /*

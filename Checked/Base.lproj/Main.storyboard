@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,7 +33,7 @@
                                 <rect key="frame" x="5" y="69" width="404" height="668"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="list_cell" textLabel="rlU-UQ-S7T" detailTextLabel="dDg-Gh-RHo" style="IBUITableViewCellStyleValue1" id="nau-1S-aCL">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="list_cell" textLabel="rlU-UQ-S7T" style="IBUITableViewCellStyleDefault" id="nau-1S-aCL">
                                         <rect key="frame" x="0.0" y="28" width="404" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nau-1S-aCL" id="J5K-3F-wpZ">
@@ -40,14 +41,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rlU-UQ-S7T">
-                                                    <rect key="frame" x="15" y="11" width="34" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dDg-Gh-RHo">
-                                                    <rect key="frame" x="310" y="11" width="59" height="21"/>
+                                                    <rect key="frame" x="15" y="0.0" width="354" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -244,11 +238,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="&lt;List Name&gt;" id="VJq-fb-xUu">
-                        <barButtonItem key="rightBarButtonItem" title="Add Item" id="T6G-zp-S0a">
-                            <connections>
-                                <segue destination="nK7-UN-bcg" kind="show" identifier="addNewItemSegue" animates="NO" id="ZWJ-rz-e5h"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Add Item" id="T6G-zp-S0a">
+                                <connections>
+                                    <segue destination="nK7-UN-bcg" kind="show" identifier="addNewItemSegue" animates="NO" id="ZWJ-rz-e5h"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="Item" style="plain" id="huc-Dd-2ww">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7g8-wS-b2F">
+                                    <rect key="frame" x="225" y="7" width="92" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </button>
+                                <connections>
+                                    <segue destination="nK7-UN-bcg" kind="show" identifier="editItemSegue" id="fzc-6h-hhL"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="oCK-8S-myB" id="2Im-E7-iWo"/>
@@ -260,10 +265,10 @@
             </objects>
             <point key="canvasLocation" x="823.1884057971015" y="1045.9239130434783"/>
         </scene>
-        <!--Add Item-->
+        <!--addItemVC-->
         <scene sceneID="4aP-FF-FFq">
             <objects>
-                <viewController id="nK7-UN-bcg" customClass="AddNewItemViewController" customModule="Checked" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addItemVC" title="addItemVC" id="nK7-UN-bcg" customClass="AddNewItemViewController" customModule="Checked" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4az-iE-qZi"/>
                         <viewControllerLayoutGuide type="bottom" id="kJY-Cz-Bc9"/>
@@ -380,5 +385,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ADP-yO-CBr"/>
+        <segue reference="fzc-6h-hhL"/>
     </inferredMetricsTieBreakers>
 </document>
