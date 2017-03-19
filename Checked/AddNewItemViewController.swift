@@ -11,7 +11,15 @@ import UIKit
 import CoreData
 
 class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource{
+    
     var parentList: List!
+    var existingStore: Store!
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+    var managedObjectContext: NSManagedObjectContext?{
+        return (UIApplication.shared.delegate
+            as! AppDelegate).managedObjectContext
+    }
+    
     @IBAction func save_item(_ sender: AnyObject) {
         addNewItem()
     }
@@ -24,6 +32,37 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     var autoCompletePossibilities = ["Woolworths", "Choppies", "Pick n Pay", "Sefalana", "SquareMart"]
     var autoComplete = [String]()
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initializeFetchedResultsController()
+    }
+    
+    
+    /*
+     *
+     */
+    func initializeFetchedResultsController() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Store")
+        let name_sort = NSSortDescriptor(key: "name", ascending: true)
+        request.sortDescriptors = [name_sort]
+        
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                              managedObjectContext: managedObjectContext!,
+                                                              sectionNameKeyPath: nil,
+                                                              cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+        
+    }
+    
+    
+    
     /*
      *
      */
@@ -32,13 +71,21 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return autoCompletePossibilities.count
+        
+        
+        let sectionInfo = self.fetchedResultsController.sections![section]
+        
+        return sectionInfo.numberOfObjects
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "store_cell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = autoCompletePossibilities[indexPath.row]
+        let store = fetchedResultsController.object(at: indexPath) as! Store
+        
+        cell.textLabel?.text = store.name
         
         return cell
     }
@@ -56,23 +103,27 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         let newItem = NSEntityDescription.insertNewObject(forEntityName: "Item", into: managedObjectContext) as! Item
         
-        let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext) as! Store
-        
         newItem.name = item_name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
         newItem.price = (item_price.text! as NSString).doubleValue as NSNumber?
         
-        newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        newItem.storeToBuyFrom = newStore
+        
         
         parentList.mutableSetValue(forKey: "itemsInList").add(newItem)
         
-//        do{
-//            try newItem.managedObjectContext!.save()
-//        } catch {
-//            print(error)
-//        }
+        
+        //if store exists update the existing record
+        if doesStoreExist(storeName: item_store.text!){
+            newItem.storeToBuyFrom = existingStore
+        }else {
+            let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext) as! Store
+            
+            newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            newItem.storeToBuyFrom = newStore
+        }
+        
+        
         
         do{
             try parentList.managedObjectContext!.save()
@@ -81,6 +132,27 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
             print(error)
         }
     
+    }
+    
+    /*
+    *
+    */
+    func doesStoreExist(storeName: String) -> Bool{
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Store")
+        let predicate = NSPredicate(format: "name == %@", storeName)
+        fetchRequest.predicate = predicate
+        
+        do{
+        let fetchResults = try self.managedObjectContext!.fetch(fetchRequest) as? [Store]
+        if fetchResults!.count > 0 {
+            print("\(fetchResults?[0].name) already exists \(fetchResults!.count) times")
+            existingStore = fetchResults?[0]
+            return true
+            }
+        } catch { print(error) }
+        
+        return false
     }
     
 }

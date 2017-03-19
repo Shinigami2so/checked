@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Automatic">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16C67" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Item" representedClassName=".Item" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="parentList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="itemsInList" inverseEntity="List" syncable="YES"/>
         <relationship name="storeToBuyFrom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Store" inverseName="itemsInStore" inverseEntity="Store" syncable="YES"/>
     </entity>
     <entity name="List" representedClassName=".List" syncable="YES">
-        <attribute name="completion_status" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="date_created" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="date_modified" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="completion_status" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="date_created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="date_modified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="itemsInList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="parentList" inverseEntity="Item" syncable="YES"/>
     </entity>

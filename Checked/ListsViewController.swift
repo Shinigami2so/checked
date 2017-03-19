@@ -31,10 +31,6 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let date_sort = NSSortDescriptor(key: "date_created", ascending: true)
         request.sortDescriptors = [name_sort, date_sort]
         
-//        var managedObjectContext: NSManagedObjectContext?{
-//            return (UIApplication.sharedApplication().delegate
-//                as! AppDelegate).managedObjectContext
-//        }
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
                                    managedObjectContext: managedObjectContext!,
