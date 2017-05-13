@@ -104,83 +104,14 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
      *
      */
     func addNewItem(){
-        if self.isNewItem{
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
-            let newItem = NSEntityDescription.insertNewObject(forEntityName: "Item", into: managedObjectContext) as! Item
         
-            newItem.name = item_name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        
-            newItem.price = (item_price.text! as NSString).doubleValue as NSNumber?
-        
-            parentList.mutableSetValue(forKey: "itemsInList").add(newItem)
-        
-            //if store exists update the existing record
-            if doesStoreExist(storeName: item_store.text!){
-                newItem.storeToBuyFrom = existingStore
-            }else {
-                let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext) as! Store
-            
-                newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                newItem.storeToBuyFrom = newStore
-            }
-        
-            do{
-                try parentList.managedObjectContext!.save()
-                self.navigationController?.popViewController(animated: false)
-            } catch {
-                print(error)
-            }
-        } else {
-            editItem.setValue((item_name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)), forKey: "name")
-            editItem.setValue(((item_price.text! as NSString).doubleValue as NSNumber?), forKey: "price")
-            
-            editItem.setValue(getOrCreateStoreWithName(storeName: item_store.text!), forKey: "storeToBuyFrom")
-            
-            do{
-                try managedObjectContext!.save()
-                self.navigationController?.popViewController(animated: false)
-            } catch {
-                print(error)
-            }
-            
+        let ds = DataService()
+        let item_price_final = (item_price.text! as NSString).doubleValue as NSNumber
+        if (ds.createItem(itemName: item_name.text!,itemPrice: item_price_final, parentStoreName: item_store.text!, parentList: parentList)){
+            self.navigationController?.popViewController(animated: false)
         }
     }
     
-    /*
-    *
-    */
-    func getOrCreateStoreWithName(storeName: String) ->Store{
-        if doesStoreExist(storeName: storeName){
-            return existingStore
-        } else {
-            let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext!) as! Store
-            newStore.name = item_store.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            
-            return newStore
-        }
-    }
-    
-    /*
-    *
-    */
-    func doesStoreExist(storeName: String) -> Bool{
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Store")
-        let predicate = NSPredicate(format: "name == %@", storeName)
-        fetchRequest.predicate = predicate
-        
-        do{
-        let fetchResults = try self.managedObjectContext!.fetch(fetchRequest) as? [Store]
-        if fetchResults!.count > 0 {
-            print("\(fetchResults?[0].name) already exists \(fetchResults!.count) times")
-            existingStore = fetchResults?[0]
-            return true
-            }
-        } catch { print(error) }
-        
-        return false
-    }
     
 }
 

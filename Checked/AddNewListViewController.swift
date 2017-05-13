@@ -20,24 +20,13 @@ class AddNewListViewController: UIViewController, UITextFieldDelegate {
     
     
     /*
-    *
+    * Create a new list
     */
     func addNewList(_ list_name: String){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
-        
-        let newList = NSEntityDescription.insertNewObject(forEntityName: "List", into: managedObjectContext) as! List
-        
-        newList.name = list_name
-        newList.date_created = Date()
-        
-        do{
-            try managedObjectContext.save()
+        let ds = DataService()
+        if (ds.createList(list_name: list_name_text_field.text!)){
             self.navigationController?.popViewController(animated: false)
-        } catch {
-            print(error)
         }
-        
     }
     
     
