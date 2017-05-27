@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B422F5B91ED7711F007FA948 /* ListTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422F5B71ED7711F007FA948 /* ListTestCase.swift */; };
+		B422F5BA1ED773CB007FA948 /* List+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FCD9951D81EF5200DE29BB /* List+CoreDataProperties.swift */; };
+		B422F5C11ED8024A007FA948 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87C1D745EF800F524BA /* List.swift */; };
 		B423C6581EC792A80017B20C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B423C6541EC7914D0017B20C /* DataService.swift */; };
 		B44E52371DF712AE00A6107D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44E52351DF712AE00A6107D /* Main.storyboard */; };
 		B463A8451D72D86A00F524BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8441D72D86A00F524BA /* AppDelegate.swift */; };
@@ -46,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B422F5B71ED7711F007FA948 /* ListTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListTestCase.swift; path = CheckedTests/ListTestCase.swift; sourceTree = SOURCE_ROOT; };
 		B423C6541EC7914D0017B20C /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		B44E52361DF712AE00A6107D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B463A8411D72D86A00F524BA /* Checked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checked.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,11 +133,11 @@
 				B463A8851D74750700F524BA /* AddNewListViewController.swift */,
 				B463A8751D73150800F524BA /* ListsViewController.swift */,
 				B463A8871D74943600F524BA /* AddNewItemViewController.swift */,
-				B423C6541EC7914D0017B20C /* DataService.swift */,
 				B463A8771D74128300F524BA /* ItemsViewController.swift */,
 				B44E52351DF712AE00A6107D /* Main.storyboard */,
-				B463A87A1D745EF800F524BA /* Item.swift */,
+				B423C6541EC7914D0017B20C /* DataService.swift */,
 				B463A87C1D745EF800F524BA /* List.swift */,
+				B463A87A1D745EF800F524BA /* Item.swift */,
 				B463A87E1D745EF800F524BA /* Store.swift */,
 				B463A84E1D72D86A00F524BA /* Assets.xcassets */,
 				B463A8501D72D86A00F524BA /* LaunchScreen.storyboard */,
@@ -146,6 +150,7 @@
 		B463A85B1D72D86A00F524BA /* CheckedTests */ = {
 			isa = PBXGroup;
 			children = (
+				B422F5B71ED7711F007FA948 /* ListTestCase.swift */,
 				B463A85C1D72D86A00F524BA /* CheckedTests.swift */,
 				B463A85E1D72D86A00F524BA /* Info.plist */,
 			);
@@ -224,7 +229,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Thuso Mokane";
 				TargetAttributes = {
 					B463A8401D72D86A00F524BA = {
@@ -319,6 +324,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B463A85D1D72D86A00F524BA /* CheckedTests.swift in Sources */,
+				B422F5C11ED8024A007FA948 /* List.swift in Sources */,
+				B422F5BA1ED773CB007FA948 /* List+CoreDataProperties.swift in Sources */,
+				B422F5B91ED7711F007FA948 /* ListTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,11 +387,14 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Thuso Mokane (5DXC4PFGYG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thuso Mokane (5DXC4PFGYG)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -424,10 +435,13 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Thuso Mokane (5DXC4PFGYG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -444,6 +458,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

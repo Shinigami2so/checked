@@ -89,7 +89,7 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let list = fetchedResultsController.object(at: indexPath) as! List
         
         cell.textLabel?.text = list.name
-        //cell.detailTextLabel?.text = "open list"
+        cell.detailTextLabel?.text = "\(list.numberOfItems())"
         
         return cell
     }

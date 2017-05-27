@@ -11,12 +11,18 @@ import CoreData
 import UIKit
 public class List: NSManagedObject {
 
-//    func prepMOC() -> NSManagedObjectContext{
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let managedObjectContext : NSManagedObjectContext = appDelegate.managedObjectContext
-//        
-//        return managedObjectContext
-//    }
+    func prepMOC() -> NSManagedObjectContext{
+        let modelUrl = Bundle.main.url(forResource: "Checked", withExtension: "momd")
+        guard let model = NSManagedObjectModel.init(contentsOf: modelUrl!) else { fatalError("model not found") }
+        
+        let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+        try! psc.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+        
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        context.persistentStoreCoordinator = psc
+        
+        return context
+    }
     
     func prepfetchedResultsController() -> NSFetchedResultsController<NSFetchRequestResult>{
         var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!

@@ -51,7 +51,7 @@ class DataService {
         newItem.price = itemPrice
         newItem.parentList = parentList
         //
-        if(storeName == nil){ let storeName = "Other"}
+        if(storeName == ""){ storeName = "Other"}
         //
         var parentStore = getStoreByName(storeName: storeName)
         //
@@ -65,7 +65,6 @@ class DataService {
         }
         
         do{
-            print("We are here")
             try managedObjectContext.save()
             return true
         } catch {
@@ -79,15 +78,13 @@ class DataService {
     /*
      * Create new store
      */
-    func createStore(storeName: String) -> Bool{
+    func createStore(storeName: String){
         let managedObjectContext : NSManagedObjectContext = prepMOC()
         let newStore = NSEntityDescription.insertNewObject(forEntityName: "Store", into: managedObjectContext) as! Store
         newStore.name = storeName
         do{
             try managedObjectContext.save()
-            return true
         } catch { print(error) }
-        return false
     }
     
     
@@ -146,8 +143,25 @@ class DataService {
     /*
      *  Get store list
      */
-    func getAllStores(){
+    func getListsByDate(){
+        var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+        let managedObjectContext = prepMOC()
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
+        let name_sort = NSSortDescriptor(key: "name", ascending: true)
+        let date_sort = NSSortDescriptor(key: "date_created", ascending: true)
+        request.sortDescriptors = [name_sort, date_sort]
         
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                              managedObjectContext: managedObjectContext,
+                                                              sectionNameKeyPath: nil,
+                                                              cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
     }
     
     

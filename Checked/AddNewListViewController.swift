@@ -18,7 +18,6 @@ class AddNewListViewController: UIViewController, UITextFieldDelegate {
         addNewList(list_name_text_field.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
     }
     
-    
     /*
     * Create a new list
     */
