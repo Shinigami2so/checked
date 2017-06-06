@@ -12,6 +12,12 @@
 		B422F5C11ED8024A007FA948 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87C1D745EF800F524BA /* List.swift */; };
 		B423C6581EC792A80017B20C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B423C6541EC7914D0017B20C /* DataService.swift */; };
 		B44E52371DF712AE00A6107D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44E52351DF712AE00A6107D /* Main.storyboard */; };
+		B44E5E9D1EE343F0005088DF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87A1D745EF800F524BA /* Item.swift */; };
+		B44E5E9E1EE41455005088DF /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B423C6541EC7914D0017B20C /* DataService.swift */; };
+		B44E5E9F1EE415B3005088DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8441D72D86A00F524BA /* AppDelegate.swift */; };
+		B44E5EA01EE41E0C005088DF /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FCD9931D81EF5200DE29BB /* Item+CoreDataProperties.swift */; };
+		B44E5EA11EE41F0A005088DF /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A87E1D745EF800F524BA /* Store.swift */; };
+		B44E5EA21EE41F0E005088DF /* Store+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FCD9941D81EF5200DE29BB /* Store+CoreDataProperties.swift */; };
 		B463A8451D72D86A00F524BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8441D72D86A00F524BA /* AppDelegate.swift */; };
 		B463A8471D72D86A00F524BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B463A8461D72D86A00F524BA /* ViewController.swift */; };
 		B463A84D1D72D86A00F524BA /* Checked.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B463A84B1D72D86A00F524BA /* Checked.xcdatamodeld */; };
@@ -323,8 +329,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44E5E9D1EE343F0005088DF /* Item.swift in Sources */,
 				B463A85D1D72D86A00F524BA /* CheckedTests.swift in Sources */,
+				B44E5EA01EE41E0C005088DF /* Item+CoreDataProperties.swift in Sources */,
+				B44E5EA11EE41F0A005088DF /* Store.swift in Sources */,
 				B422F5C11ED8024A007FA948 /* List.swift in Sources */,
+				B44E5EA21EE41F0E005088DF /* Store+CoreDataProperties.swift in Sources */,
+				B44E5E9E1EE41455005088DF /* DataService.swift in Sources */,
+				B44E5E9F1EE415B3005088DF /* AppDelegate.swift in Sources */,
 				B422F5BA1ED773CB007FA948 /* List+CoreDataProperties.swift in Sources */,
 				B422F5B91ED7711F007FA948 /* ListTestCase.swift in Sources */,
 			);

@@ -103,15 +103,16 @@ class ListsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete"){action, index in
             
-            //delete object in model
-            self.managedObjectContext?.delete(list)
-            
-            //save model with object deleted
-            do{
-                try self.managedObjectContext?.save()
-            } catch {
-                print(error)
-            }
+//            //delete object in model
+//            self.managedObjectContext?.delete(list)
+//            
+//            //save model with object deleted
+//            do{
+//                try self.managedObjectContext?.save()
+//            } catch {
+//                print(error)
+//            }
+            list.deleteList()
             self.initializeFetchedResultsController()
             self.table.reloadData()
         }

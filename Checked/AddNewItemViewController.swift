@@ -22,7 +22,11 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
     }
     
     @IBAction func save_item(_ sender: AnyObject) {
-        addNewItem()
+        let ds = DataService()
+        let item_price_final = (item_price.text! as NSString).doubleValue as NSNumber
+        if (ds.createItem(itemName: item_name.text!,itemPrice: item_price_final, parentStoreName: item_store.text!, parentList: parentList)){
+            self.navigationController?.popViewController(animated: false)
+        }
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -98,18 +102,6 @@ class AddNewItemViewController: UIViewController, UITextFieldDelegate, UITableVi
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         item_store.text? = (tableView.cellForRow(at: indexPath)?.textLabel?.text)!
-    }
-    
-    /*
-     *
-     */
-    func addNewItem(){
-        
-        let ds = DataService()
-        let item_price_final = (item_price.text! as NSString).doubleValue as NSNumber
-        if (ds.createItem(itemName: item_name.text!,itemPrice: item_price_final, parentStoreName: item_store.text!, parentList: parentList)){
-            self.navigationController?.popViewController(animated: false)
-        }
     }
     
     

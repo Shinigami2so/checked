@@ -139,30 +139,7 @@ class DataService {
         } catch { print(error) }
         return nil
     }
-    
-    /*
-     *  Get store list
-     */
-    func getListsByDate(){
-        var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
-        let managedObjectContext = prepMOC()
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
-        let name_sort = NSSortDescriptor(key: "name", ascending: true)
-        let date_sort = NSSortDescriptor(key: "date_created", ascending: true)
-        request.sortDescriptors = [name_sort, date_sort]
-        
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                              managedObjectContext: managedObjectContext,
-                                                              sectionNameKeyPath: nil,
-                                                              cacheName: nil)
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalError("Failed to initialize FetchedResultsController: \(error)")
-        }
-    }
+
     
     
     /*
